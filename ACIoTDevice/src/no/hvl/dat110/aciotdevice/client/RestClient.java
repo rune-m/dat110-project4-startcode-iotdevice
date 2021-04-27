@@ -11,7 +11,10 @@ public class RestClient {
         // TODO Auto-generated constructor stub
     }
 
-    private static String logpath = "/accessdevice/log";
+    private static final String url = "https://cloudservice-java-spark.herokuapp.com";
+//    private static final String url = "localhost";
+
+    private static String logpath = "/accessdevice/log/";
 
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
@@ -25,7 +28,7 @@ public class RestClient {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSON, new Gson().toJson(accessMessage));
 
-        Request request = new Request.Builder().url("http://localhost:8080" + logpath).post(body).build();
+        Request request = new Request.Builder().url(url + logpath).post(body).build();
 
         try (Response response = client.newCall(request).execute()) {
             System.out.println(response.body().string());
@@ -35,7 +38,7 @@ public class RestClient {
 
     }
 
-    private static String codepath = "/accessdevice/code";
+    private static String codepath = "/accessdevice/code/";
 
     public AccessCode doGetAccessCode() {
 
@@ -46,7 +49,7 @@ public class RestClient {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://localhost:8080" + codepath)
+                .url(url + codepath)
                 .get()
                 .build();
 
